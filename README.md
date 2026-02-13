@@ -12,6 +12,8 @@ dotfiles/
 
 ## Setup on New Machine
 
+### With GitHub Account (SSH)
+
 ```bash
 # Clone with submodules
 git clone --recurse-submodules git@github.com:jtmcginty/dotfiles.git ~/dotfiles
@@ -29,6 +31,28 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # In tmux: prefix + I to install plugins
 ```
+
+### Without GitHub Account (HTTPS - Read Only)
+
+```bash
+# Clone with submodules using HTTPS
+git clone --recurse-submodules https://github.com/jtmcginty/dotfiles.git ~/dotfiles
+
+# Or if already cloned
+cd ~/dotfiles
+git submodule update --init --recursive
+
+# Symlink configs
+ln -sf ~/dotfiles/nvim ~/.config/nvim
+ln -sf ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
+
+# Install tmux plugin manager
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+# In tmux: prefix + I to install plugins
+```
+
+**Note:** HTTPS cloning is read-only. You won't be able to push changes, but you can use the configs.
 
 ## Updating
 

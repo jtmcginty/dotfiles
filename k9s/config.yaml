@@ -1,0 +1,48 @@
+k9s:
+  liveViewAutoRefresh: true
+  refreshRate: 2
+  apiServerTimeout: 2m0s
+  maxConnRetry: 15
+  readOnly: false
+  noExitOnCtrlC: true
+  portForwardAddress: localhost
+  screenDumpDir: ~/.local/state/k9s/screen-dumps
+  ui:
+    enableMouse: true
+    headless: false
+    logoless: false
+    crumbsless: false
+    splashless: false
+    reactive: true
+    noIcons: false
+    defaultsToFullScreen: false
+    skin: catppuccin-mocha
+  skipLatestRevCheck: true
+  disablePodCounting: false
+  shellPod:
+    image: busybox:1.35.0
+    namespace: default
+    limits:
+      cpu: 100m
+      memory: 100Mi
+  imageScans:
+    enable: false
+    exclusions:
+      namespaces: []
+      labels: {}
+  logger:
+    tail: 500
+    buffer: 10000
+    sinceSeconds: -1
+    fullScreen: true
+    textWrap: false
+    showTime: true
+    disableAutoscroll: false
+  thresholds:
+    cpu:
+      critical: 90
+      warn: 70
+    memory:
+      critical: 90
+      warn: 70
+  defaultView: pods

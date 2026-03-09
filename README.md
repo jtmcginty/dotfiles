@@ -6,6 +6,10 @@ Personal configuration files managed as git submodules.
 
 ```
 dotfiles/
+├── eza/         → symlinked to ~/.config/eza
+├── git/
+│   └── ignore   → symlinked to ~/.config/git/ignore
+├── k9s/         → symlinked to ~/.config/k9s
 ├── nvim/        → github.com/jtmcginty/.nvim
 ├── tmux/        → github.com/jtmcginty/tmux-config
 ├── zsh-config/  → github.com/jtmcginty/zsh-config
@@ -13,6 +17,13 @@ dotfiles/
 ├── zshrc        → symlinked to ~/.config/zsh/.zshrc
 └── zprofile     → symlinked to ~/.config/zsh/.zprofile
 ```
+
+> **Note:** `~/.config/git/` is not fully symlinked because `config` (global git config) often
+> contains machine-specific settings. Only `ignore` is tracked here.
+>
+> **Note:** k9s runtime data (cluster configs, screen dumps, logs) is stored in
+> `~/Library/Application Support/k9s/` on macOS — not in `~/.config/k9s/` — so the
+> symlink is safe to track.
 
 ## Zsh symlink structure
 
@@ -42,9 +53,13 @@ git clone --recurse-submodules git@github.com:jtmcginty/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 git submodule update --init --recursive
 
-# Symlink nvim and tmux configs
+# Symlink nvim, tmux, and tool configs
 ln -sf ~/dotfiles/nvim ~/.config/nvim
 ln -sf ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
+ln -sf ~/dotfiles/eza ~/.config/eza
+ln -sf ~/dotfiles/k9s ~/.config/k9s
+mkdir -p ~/.config/git
+ln -sf ~/dotfiles/git/ignore ~/.config/git/ignore
 
 # Install tmux plugin manager
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
@@ -71,9 +86,13 @@ git clone --recurse-submodules https://github.com/jtmcginty/dotfiles.git ~/dotfi
 cd ~/dotfiles
 git submodule update --init --recursive
 
-# Symlink nvim and tmux configs
+# Symlink nvim, tmux, and tool configs
 ln -sf ~/dotfiles/nvim ~/.config/nvim
 ln -sf ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
+ln -sf ~/dotfiles/eza ~/.config/eza
+ln -sf ~/dotfiles/k9s ~/.config/k9s
+mkdir -p ~/.config/git
+ln -sf ~/dotfiles/git/ignore ~/.config/git/ignore
 
 # Install tmux plugin manager
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm

@@ -7,6 +7,7 @@ Personal configuration files managed as git submodules.
 ```
 dotfiles/
 ├── eza/         → symlinked to ~/.config/eza
+├── starship.toml → symlinked to ~/.config/starship.toml
 ├── git/
 │   └── ignore   → symlinked to ~/.config/git/ignore
 ├── k9s/         → symlinked to ~/.config/k9s
@@ -60,6 +61,7 @@ ln -sf ~/dotfiles/nvim ~/.config/nvim
 ln -sf ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
 ln -sf ~/dotfiles/eza ~/.config/eza
 ln -sf ~/dotfiles/k9s ~/.config/k9s
+ln -sf ~/dotfiles/starship.toml ~/.config/starship.toml
 mkdir -p ~/.config/git
 ln -sf ~/dotfiles/git/ignore ~/.config/git/ignore
 
@@ -94,6 +96,7 @@ ln -sf ~/dotfiles/nvim ~/.config/nvim
 ln -sf ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
 ln -sf ~/dotfiles/eza ~/.config/eza
 ln -sf ~/dotfiles/k9s ~/.config/k9s
+ln -sf ~/dotfiles/starship.toml ~/.config/starship.toml
 mkdir -p ~/.config/git
 ln -sf ~/dotfiles/git/ignore ~/.config/git/ignore
 

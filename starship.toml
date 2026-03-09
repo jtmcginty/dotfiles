@@ -1,0 +1,133 @@
+# starship.toml
+# Catppuccin Mocha palette + nerd font symbols.
+# Left: dir  git  ❯  |  Right: infra context · languages · duration · time
+# Symlink: ln -sf ~/dotfiles/starship.toml ~/.config/starship.toml
+
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format       = "$directory$git_branch$git_status$character"
+right_format = "$aws$kubernetes$terraform$docker_context$python$nodejs$golang$rust$ruby$cmd_duration$time"
+
+palette = "catppuccin_mocha"
+
+[palettes.catppuccin_mocha]
+rosewater = "#f5e0dc"
+flamingo  = "#f2cdcd"
+pink      = "#f5c2e7"
+mauve     = "#cba6f7"
+red       = "#f38ba8"
+maroon    = "#eba0ac"
+peach     = "#fab387"
+yellow    = "#f9e2af"
+green     = "#a6e3a1"
+teal      = "#94e2d5"
+sky       = "#89dceb"
+sapphire  = "#74c7ec"
+blue      = "#89b4fa"
+lavender  = "#b4befe"
+text      = "#cdd6f4"
+subtext1  = "#bac2de"
+subtext0  = "#a6adc8"
+overlay2  = "#9399b2"
+overlay1  = "#7f849c"
+overlay0  = "#6c7086"
+surface2  = "#585b70"
+surface1  = "#45475a"
+surface0  = "#313244"
+
+# ── Prompt character ──────────────────────────────────────────────────────────
+[character]
+success_symbol = "[❯](#FF6AC1)"
+error_symbol   = "[❯](#FF5C57)"
+
+# ── Directory ─────────────────────────────────────────────────────────────────
+[directory]
+style             = "#57C7FF bold"
+truncation_length = 3
+truncate_to_repo  = true
+format            = "[$path]($style)[$read_only]($read_only_style) "
+
+# ── Git ───────────────────────────────────────────────────────────────────────
+[git_branch]
+symbol = " "
+format = "[$symbol$branch]($style) "
+style  = "mauve"
+
+[git_status]
+format    = '([$all_status$ahead_behind]($style) )'
+style     = "overlay2"
+ahead     = "⇡${count}"
+behind    = "⇣${count}"
+diverged  = "⇕⇡${ahead_count}⇣${behind_count}"
+modified  = "*"
+staged    = "+"
+untracked = "?"
+stashed   = "≡"
+
+# ── Right: cloud / infra ──────────────────────────────────────────────────────
+[aws]
+symbol = " "
+format = "[$symbol$profile(\\($region\\))]($style)[·](overlay0) "
+style  = "peach"
+
+[kubernetes]
+disabled = false
+symbol   = "󱃾 "
+format   = "[$symbol$context(\\($namespace\\))]($style)[·](overlay0) "
+style    = "sky"
+
+[terraform]
+symbol = "󱁢 "
+format = "[$symbol$workspace]($style)[·](overlay0) "
+style  = "mauve"
+
+[docker_context]
+symbol = " "
+format = "[$symbol$context]($style)[·](overlay0) "
+style  = "sapphire"
+
+# ── Right: languages (context-sensitive — silent outside relevant projects) ───
+[python]
+symbol            = " "
+format            = "[$symbol$version( \\($virtualenv\\))]($style)[·](overlay0) "
+style             = "yellow"
+pyenv_version_name = true
+detect_files      = ["requirements.txt", "pyproject.toml", "Pipfile", "setup.py", "setup.cfg", "tox.ini"]
+detect_folders    = [".venv", "venv", "__pycache__"]
+detect_extensions = []
+
+[nodejs]
+symbol = " "
+format = "[$symbol$version]($style)[·](overlay0) "
+style  = "green"
+
+[golang]
+symbol = " "
+format = "[$symbol$version]($style)[·](overlay0) "
+style  = "sky"
+
+[rust]
+symbol = "󱘗 "
+format = "[$symbol$version]($style)[·](overlay0) "
+style  = "peach"
+
+[ruby]
+symbol = " "
+format = "[$symbol$version]($style)[·](overlay0) "
+style  = "red"
+
+# ── Right: timing ─────────────────────────────────────────────────────────────
+[cmd_duration]
+min_time = 3_000   # display threshold — bell fires separately at 10s (hooks.zsh)
+format   = "[$duration]($style)[·](overlay0) "
+style    = "overlay1"
+
+[time]
+disabled    = false
+format      = "[$time]($style)"
+style       = "overlay2"
+time_format = "%H:%M"
+
+# ── Disabled / noisy modules ──────────────────────────────────────────────────
+[package]
+disabled = true

@@ -9,6 +9,7 @@ dotfiles/
 ├── Brewfile      → one-shot tool installation
 ├── eza/          → symlinked to ~/.config/eza
 ├── git/
+│   ├── config   → symlinked to ~/.config/git/config
 │   └── ignore   → symlinked to ~/.config/git/ignore
 ├── k9s/          → symlinked to ~/.config/k9s
 ├── nvim/         → github.com/jtmcginty/nvim-config
@@ -20,8 +21,9 @@ dotfiles/
 └── zprofile      → symlinked to ~/.config/zsh/.zprofile (via zsh-config)
 ```
 
-> **Note:** `~/.config/git/` is not fully symlinked because `config` (global git config) often
-> contains machine-specific settings. Only `ignore` is tracked here.
+> **Note:** `~/.config/git/config` contains portable settings only. Machine-specific settings
+> (name, email, signing key) go in `~/.config/git/config.local`, which is loaded via
+> `[include]` and is NOT tracked in dotfiles.
 >
 > **Note:** k9s runtime data (cluster configs, screen dumps, logs) is stored in
 > `~/Library/Application Support/k9s/` on macOS — not in `~/.config/k9s/` — so the
@@ -97,7 +99,15 @@ ln -sf ~/dotfiles/eza ~/.config/eza
 ln -sf ~/dotfiles/k9s ~/.config/k9s
 ln -sf ~/dotfiles/starship.toml ~/.config/starship.toml
 mkdir -p ~/.config/git
+ln -sf ~/dotfiles/git/config ~/.config/git/config
 ln -sf ~/dotfiles/git/ignore ~/.config/git/ignore
+
+# Add machine-specific git identity (not tracked in dotfiles)
+cat >> ~/.config/git/config.local << 'EOF'
+[user]
+	name = Your Name
+	email = your@email.com
+EOF
 
 # Symlink zshenv (must live at ~ before ZDOTDIR is set)
 ln -sf ~/dotfiles/zshenv ~/.zshenv

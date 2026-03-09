@@ -1,0 +1,45 @@
+# ~/.config/git/config
+# Portable global git settings — tracked in dotfiles.
+# Machine-specific settings (user.name, user.email, signing key) go in
+# ~/.config/git/config.local and are NOT tracked.
+
+[core]
+	editor = nvim
+	pager = delta
+
+[init]
+	defaultBranch = main
+
+[pull]
+	rebase = true
+
+[push]
+	autoSetupRemote = true
+
+[fetch]
+	prune = true
+
+[rebase]
+	autoStash = true
+
+[branch]
+	sort = -committerdate
+
+[merge]
+	conflictstyle = zdiff3
+
+[help]
+	autocorrect = prompt
+
+[diff]
+	colorMoved = zebra
+
+[delta]
+	navigate = true
+	side-by-side = true
+
+[interactive]
+	diffFilter = delta --color-only
+
+[include]
+	path = ~/.config/git/config.local

@@ -2,11 +2,6 @@
 # Sourced for interactive shells — anything you need at the prompt.
 # Order matters here. Plugins and prompt must come before completions.
 
-# ── Powerlevel10k instant prompt — must be FIRST, before any output ──────────
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # ── Homebrew guard for non-login interactive shells ───────────────────────────
 # zprofile (which sets up Homebrew PATH) only runs for login shells.
 # Terminal tabs, tmux panes, and other non-login interactive shells need this.
@@ -29,6 +24,7 @@ for _zsh_file in \
   aliases \
   functions \
   tools \
+  hooks \
   secrets
 do
   [[ -f "$_zsh_config_dir/${_zsh_file}.zsh" ]] && source "$_zsh_config_dir/${_zsh_file}.zsh"

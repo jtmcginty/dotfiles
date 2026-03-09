@@ -1,0 +1,3 @@
+# GLOBAL GITIGNORE FILE
+# Never commit secrets
+.secrets

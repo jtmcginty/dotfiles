@@ -9,8 +9,9 @@ dotfiles/
 ├── Brewfile      → one-shot tool installation
 ├── eza/          → symlinked to ~/.config/eza
 ├── git/
-│   ├── config   → symlinked to ~/.config/git/config
-│   └── ignore   → symlinked to ~/.config/git/ignore
+│   ├── config          → symlinked to ~/.config/git/config
+│   ├── commit-template → symlinked to ~/.config/git/commit-template
+│   └── ignore          → symlinked to ~/.config/git/ignore
 ├── k9s/          → symlinked to ~/.config/k9s
 ├── nvim/         → github.com/jtmcginty/nvim-config
 ├── starship.toml → symlinked to ~/.config/starship.toml
@@ -100,6 +101,7 @@ ln -sf ~/dotfiles/k9s ~/.config/k9s
 ln -sf ~/dotfiles/starship.toml ~/.config/starship.toml
 mkdir -p ~/.config/git
 ln -sf ~/dotfiles/git/config ~/.config/git/config
+ln -sf ~/dotfiles/git/commit-template ~/.config/git/commit-template
 ln -sf ~/dotfiles/git/ignore ~/.config/git/ignore
 
 # Add machine-specific git identity (not tracked in dotfiles)

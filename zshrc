@@ -11,6 +11,14 @@ if [[ -z "$(command -v brew)" ]]; then
   [[ -f "/usr/local/bin/brew" ]] && eval "$(/usr/local/bin/brew shellenv)"
 fi
 
+# ── Auto-start tmux ───────────────────────────────────────────────────────────
+# Attach to the most recently used session, or create a new one.
+# Skipped inside tmux, in VS Code, and in CI environments.
+if command -v tmux &>/dev/null && [[ -z "$TMUX" && "$TERM_PROGRAM" != "vscode" && -z "$CI" ]]; then
+  tmux attach -t "$(tmux list-sessions -F '#{session_last_attached} #{session_name}' 2>/dev/null \
+    | sort -r | head -n1 | cut -d' ' -f2)" 2>/dev/null || tmux new
+fi
+
 # ── Kiro CLI — must come first per its own requirement ───────────────────────
 [[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh" ]] && \
   builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh"

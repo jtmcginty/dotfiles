@@ -6,6 +6,10 @@
 [core]
 	editor = nvim
 	pager = delta
+	autocrlf = input
+	eol = lf
+	ignorecase = false
+	whitespace = trailing-space,space-before-tab
 
 [init]
 	defaultBranch = main
@@ -33,6 +37,20 @@
 
 [diff]
 	colorMoved = zebra
+	submodule = log
+
+[log]
+	abbrevCommit = true
+	date = relative
+
+[status]
+	submoduleSummary = true
+
+[stash]
+	showPatch = true
+
+[commit]
+	template = ~/.config/git/commit-template
 
 [delta]
 	navigate = true

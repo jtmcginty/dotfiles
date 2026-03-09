@@ -6,17 +6,18 @@ Personal configuration files managed as git submodules.
 
 ```
 dotfiles/
-├── eza/         → symlinked to ~/.config/eza
-├── starship.toml → symlinked to ~/.config/starship.toml
+├── Brewfile      → one-shot tool installation
+├── eza/          → symlinked to ~/.config/eza
 ├── git/
 │   └── ignore   → symlinked to ~/.config/git/ignore
-├── k9s/         → symlinked to ~/.config/k9s
-├── nvim/        → github.com/jtmcginty/.nvim
-├── tmux/        → github.com/jtmcginty/tmux-config
-├── zsh-config/  → github.com/jtmcginty/zsh-config
-├── zshenv       → symlinked to ~/.zshenv
-├── zshrc        → symlinked to ~/.config/zsh/.zshrc
-└── zprofile     → symlinked to ~/.config/zsh/.zprofile
+├── k9s/          → symlinked to ~/.config/k9s
+├── nvim/         → github.com/jtmcginty/nvim-config
+├── starship.toml → symlinked to ~/.config/starship.toml
+├── tmux/         → github.com/jtmcginty/tmux-config
+├── zsh-config/   → github.com/jtmcginty/zsh-config
+├── zshenv        → symlinked to ~/.zshenv
+├── zshrc         → symlinked to ~/.config/zsh/.zshrc (via zsh-config)
+└── zprofile      → symlinked to ~/.config/zsh/.zprofile (via zsh-config)
 ```
 
 > **Note:** `~/.config/git/` is not fully symlinked because `config` (global git config) often
@@ -46,51 +47,49 @@ See `zsh-config/README.md` for full setup instructions and design rationale.
 
 ## Setup on New Machine
 
-### With GitHub Account (SSH)
+### 1. Install Homebrew
 
 ```bash
-# Clone with submodules
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+### 2. Clone dotfiles
+
+```bash
+# SSH (recommended)
 git clone --recurse-submodules git@github.com:jtmcginty/dotfiles.git ~/dotfiles
 
-# Or if already cloned
-cd ~/dotfiles
-git submodule update --init --recursive
-
-# Symlink nvim, tmux, and tool configs
-ln -sf ~/dotfiles/nvim ~/.config/nvim
-ln -sf ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
-ln -sf ~/dotfiles/eza ~/.config/eza
-ln -sf ~/dotfiles/k9s ~/.config/k9s
-ln -sf ~/dotfiles/starship.toml ~/.config/starship.toml
-mkdir -p ~/.config/git
-ln -sf ~/dotfiles/git/ignore ~/.config/git/ignore
-
-# Install tmux plugin manager
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-
-# In tmux: prefix + I to install plugins
-
-# Symlink zshenv (must live at ~ before ZDOTDIR is set)
-ln -sf ~/dotfiles/zshenv ~/.zshenv
-
-# zsh-config submodule IS ZDOTDIR — symlink the whole directory
-ln -sf ~/dotfiles/zsh-config ~/.config/zsh
-
-# Link zshrc and zprofile into the submodule so zsh finds them via ZDOTDIR
-ln -sf ~/dotfiles/zshrc ~/dotfiles/zsh-config/.zshrc
-ln -sf ~/dotfiles/zprofile ~/dotfiles/zsh-config/.zprofile
+# HTTPS (read-only, no push)
+git clone --recurse-submodules https://github.com/jtmcginty/dotfiles.git ~/dotfiles
 ```
 
-### Without GitHub Account (HTTPS - Read Only)
+### 3. Install tools via Brewfile
 
 ```bash
-# Clone with submodules using HTTPS
-git clone --recurse-submodules https://github.com/jtmcginty/dotfiles.git ~/dotfiles
+brew bundle --file=~/dotfiles/Brewfile
+```
 
-# Or if already cloned
-cd ~/dotfiles
-git submodule update --init --recursive
+### 4. Manual steps (not in Homebrew)
 
+**nvm** — install via the official script (brew install works but expects `~/.nvm`):
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+```
+
+**Tmux plugin manager:**
+```bash
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+# Then inside tmux: prefix + I to install plugins
+```
+
+**k9s screen dump directory:**
+```bash
+mkdir -p ~/.local/state/k9s/screen-dumps
+```
+
+### 5. Create symlinks
+
+```bash
 # Symlink nvim, tmux, and tool configs
 ln -sf ~/dotfiles/nvim ~/.config/nvim
 ln -sf ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
@@ -99,11 +98,6 @@ ln -sf ~/dotfiles/k9s ~/.config/k9s
 ln -sf ~/dotfiles/starship.toml ~/.config/starship.toml
 mkdir -p ~/.config/git
 ln -sf ~/dotfiles/git/ignore ~/.config/git/ignore
-
-# Install tmux plugin manager
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-
-# In tmux: prefix + I to install plugins
 
 # Symlink zshenv (must live at ~ before ZDOTDIR is set)
 ln -sf ~/dotfiles/zshenv ~/.zshenv
@@ -116,18 +110,21 @@ ln -sf ~/dotfiles/zshrc ~/dotfiles/zsh-config/.zshrc
 ln -sf ~/dotfiles/zprofile ~/dotfiles/zsh-config/.zprofile
 ```
 
-**Note:** HTTPS cloning is read-only. You won't be able to push changes, but you can use the configs.
+### 6. Install pre-commit hooks
+
+```bash
+for repo in ~/dotfiles ~/dotfiles/zsh-config ~/dotfiles/nvim ~/dotfiles/tmux; do
+  (cd "$repo" && pre-commit install && pre-commit install --hook-type commit-msg)
+done
+```
 
 ## Updating
 
 ```bash
-# Update all submodules to latest
 cd ~/dotfiles
 git submodule update --remote
-
-# Commit the updates
 git add .
-git commit -m "Update submodules"
+git commit -m "chore(deps): update submodules"
 git push
 ```
 
@@ -143,6 +140,6 @@ gh repo create new-config --private --source=. --remote=origin --push
 # Add as submodule
 cd ~/dotfiles
 git submodule add git@github.com:jtmcginty/new-config.git new-config
-git commit -m "Add new-config submodule"
+git commit -m "feat: add new-config submodule"
 git push
 ```

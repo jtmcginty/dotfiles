@@ -27,17 +27,19 @@ dotfiles/
 
 ## Zsh symlink structure
 
-**Important:** the symlink targets are not all in the same place — this is intentional.
+**Important:** `~/.config/zsh` is not a plain directory — it is a symlink to the
+`zsh-config` submodule. That submodule IS `ZDOTDIR`.
 
 ```
-~/.zshenv               -> ~/dotfiles/zshenv          (in ~ because zsh reads it before ZDOTDIR is set)
-~/.config/zsh/.zshrc    -> ~/dotfiles/zshrc            (in ZDOTDIR because zshenv sets ZDOTDIR=~/.config/zsh)
-~/.config/zsh/.zprofile -> ~/dotfiles/zprofile         (same reason)
+~/.zshenv                  -> ~/dotfiles/zshenv        (must live at ~ — zsh reads it before ZDOTDIR is set)
+~/.config/zsh              -> ~/dotfiles/zsh-config    (the submodule directory becomes ZDOTDIR)
+~/.config/zsh/.zshrc       -> ~/dotfiles/zshrc         (symlink inside the submodule, resolved via ZDOTDIR)
+~/.config/zsh/.zprofile    -> ~/dotfiles/zprofile      (same)
 ```
 
-All source files live in `~/dotfiles/`. The symlink *targets* differ because `~/.zshenv`
-must exist at `~` before `ZDOTDIR` is set, but once `zshenv` runs and sets
-`ZDOTDIR=$HOME/.config/zsh`, zsh looks for all subsequent dotfiles there.
+`zshenv` sets `ZDOTDIR=$HOME/.config/zsh`. From that point zsh looks for all startup
+files inside the submodule. `zshrc` and `zprofile` live in the main dotfiles repo but
+are linked into the submodule directory so zsh can find them via `ZDOTDIR`.
 
 See `zsh-config/README.md` for full setup instructions and design rationale.
 
@@ -66,14 +68,15 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # In tmux: prefix + I to install plugins
 
-# Symlink zsh configs (note: different target dirs — see Zsh symlink structure above)
+# Symlink zshenv (must live at ~ before ZDOTDIR is set)
 ln -sf ~/dotfiles/zshenv ~/.zshenv
-mkdir -p ~/.config/zsh
-ln -sf ~/dotfiles/zshrc ~/.config/zsh/.zshrc
-ln -sf ~/dotfiles/zprofile ~/.config/zsh/.zprofile
 
-# Symlink zsh-config module into ZDOTDIR
-ln -sf ~/dotfiles/zsh-config ~/.config/zsh/zsh-config
+# zsh-config submodule IS ZDOTDIR — symlink the whole directory
+ln -sf ~/dotfiles/zsh-config ~/.config/zsh
+
+# Link zshrc and zprofile into the submodule so zsh finds them via ZDOTDIR
+ln -sf ~/dotfiles/zshrc ~/dotfiles/zsh-config/.zshrc
+ln -sf ~/dotfiles/zprofile ~/dotfiles/zsh-config/.zprofile
 ```
 
 ### Without GitHub Account (HTTPS - Read Only)
@@ -99,14 +102,15 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # In tmux: prefix + I to install plugins
 
-# Symlink zsh configs (note: different target dirs — see Zsh symlink structure above)
+# Symlink zshenv (must live at ~ before ZDOTDIR is set)
 ln -sf ~/dotfiles/zshenv ~/.zshenv
-mkdir -p ~/.config/zsh
-ln -sf ~/dotfiles/zshrc ~/.config/zsh/.zshrc
-ln -sf ~/dotfiles/zprofile ~/.config/zsh/.zprofile
 
-# Symlink zsh-config module into ZDOTDIR
-ln -sf ~/dotfiles/zsh-config ~/.config/zsh/zsh-config
+# zsh-config submodule IS ZDOTDIR — symlink the whole directory
+ln -sf ~/dotfiles/zsh-config ~/.config/zsh
+
+# Link zshrc and zprofile into the submodule so zsh finds them via ZDOTDIR
+ln -sf ~/dotfiles/zshrc ~/dotfiles/zsh-config/.zshrc
+ln -sf ~/dotfiles/zprofile ~/dotfiles/zsh-config/.zprofile
 ```
 
 **Note:** HTTPS cloning is read-only. You won't be able to push changes, but you can use the configs.

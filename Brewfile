@@ -4,7 +4,8 @@
 # Remove unlisted packages: brew bundle cleanup --force
 
 # ── Taps ─────────────────────────────────────────────────────────────────────
-tap "hashicorp/tap"               # terraform (official tap, more up-to-date than core)
+tap "hashicorp/tap"               # terraform, vault, consul, nomad, packer, boundary
+tap "fluxcd/tap"                  # flux
 # tap "adoptopenjdk/openjdk"      # uncomment if doing Java dev
 
 # ── Shell environment ─────────────────────────────────────────────────────────
@@ -62,10 +63,37 @@ brew "gopls"                      # Go LSP
 brew "kubernetes-cli"             # kubectl
 brew "k9s"                        # Kubernetes TUI
 brew "helm"                       # Kubernetes package manager
+brew "minikube"                   # local Kubernetes cluster
+brew "kind"                       # Kubernetes in Docker
+brew "eksctl"                     # AWS EKS cluster management
+brew "kustomize"                  # Kubernetes config management
+brew "skaffold"                   # local k8s dev workflow
+brew "stern"                      # multi-pod log tailing
+brew "velero"                     # cluster backup and restore
+
+# ── GitOps / CD ───────────────────────────────────────────────────────────────
+brew "fluxcd/tap/flux"            # FluxCD GitOps operator
+brew "argocd"                     # Argo CD GitOps CD
+
+# ── Service mesh / networking ──────────────────────────────────────────────────
+brew "istioctl"                   # Istio service mesh CLI
+brew "linkerd"                    # Linkerd service mesh CLI
 
 # ── Infrastructure ────────────────────────────────────────────────────────────
 brew "hashicorp/tap/terraform"
 brew "terraform-ls"               # Terraform LSP
+brew "hashicorp/tap/vault"        # secrets management
+brew "hashicorp/tap/consul"       # service discovery and configuration
+brew "hashicorp/tap/nomad"        # workload orchestration
+brew "hashicorp/tap/packer"       # machine image builder
+brew "hashicorp/tap/boundary"     # identity-based access management
+
+# ── Cloud CLIs ────────────────────────────────────────────────────────────────
+brew "doctl"                      # DigitalOcean CLI
+brew "pulumi"                     # infrastructure as code
+
+# ── Secrets / PKI ─────────────────────────────────────────────────────────────
+brew "step"                       # smallstep CLI — certs, OIDC, SSH
 
 # ── Neovim LSP servers ────────────────────────────────────────────────────────
 brew "lua-language-server"
@@ -79,6 +107,7 @@ brew "jdtls"                      # Java LSP
 # ── Security / repo hygiene ───────────────────────────────────────────────────
 brew "pre-commit"
 brew "detect-secrets"
+brew "trivy"                      # container and code vulnerability scanner
 
 # ── AI / local models ─────────────────────────────────────────────────────────
 brew "ollama"                     # local LLM (used by ai alias)

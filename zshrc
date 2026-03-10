@@ -1,6 +1,6 @@
 # ~/.zshrc
 # Sourced for interactive shells — anything you need at the prompt.
-# Order matters here. Plugins and prompt must come before completions.
+# Order matters here. Plugins and tools must come before completions.
 
 # ── Homebrew guard for non-login interactive shells ───────────────────────────
 # zprofile (which sets up Homebrew PATH) only runs for login shells.
@@ -39,10 +39,10 @@ _zsh_config_dir="${ZDOTDIR:-$HOME/.config/zsh}"
 for _zsh_file in \
   history \
   plugins \
+  tools \
   completion \
   aliases \
   functions \
-  tools \
   hooks \
   secrets
 do

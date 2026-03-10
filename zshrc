@@ -21,8 +21,13 @@ bindkey '\e[3~' delete-char
 # Attach to the most recently used session, or create a new one.
 # Skipped inside tmux, in VS Code, and in CI environments.
 if command -v tmux &>/dev/null && [[ -z "$TMUX" && "$TERM_PROGRAM" != "vscode" && -z "$CI" ]]; then
-  tmux attach -t "$(tmux list-sessions -F '#{session_last_attached} #{session_name}' 2>/dev/null \
-    | sort -r | head -n1 | cut -d' ' -f2)" 2>/dev/null || tmux new
+  _tmux_session="$(tmux list-sessions -F '#{session_last_attached} #{session_name}' 2>/dev/null \
+    | sort -r | head -n1 | cut -d' ' -f2)"
+  if [[ -n "$_tmux_session" ]]; then
+    exec tmux attach -t "$_tmux_session"
+  else
+    exec tmux new -s main
+  fi
 fi
 
 # ── Kiro CLI — must come first per its own requirement ───────────────────────

@@ -90,6 +90,27 @@ cask "font-inter"
 # ── Terminal emulators ────────────────────────────────────────────────────────
 cask "ghostty"
 
+# ── Core apps ─────────────────────────────────────────────────────────────────
+cask "docker-desktop"             # container runtime
+cask "firefox"
+cask "google-chrome"
+cask "keeper-password-manager"
+cask "postman"                    # API client
+cask "typora"                     # markdown editor
+cask "visual-studio-code"
+
+# ── Personal apps (commented out — not suitable for all work environments) ────
+# cask "anki"                     # flashcard study app
+# cask "calibre"                  # e-book manager
+# cask "discord"                  # chat / gaming
+# cask "gimp"                     # image editor
+# cask "obsidian"                 # knowledge base / notes
+# cask "kiro-cli"                 # Amazon Kiro AI IDE (company policy may restrict AI tools)
+# cask "signal"                   # encrypted messaging
+# cask "spotify"                  # music streaming
+# cask "superwhisper"             # voice transcription (cloud audio processing)
+# cask "tailscale-app"            # VPN / mesh networking (use company-provided VPN instead)
+# cask "utm"                      # virtual machines
+
 # ── Tooling ───────────────────────────────────────────────────────────────────
 # cask "android-platform-tools"   # uncomment if doing Android dev
-# cask "docker"                   # uncomment if using Docker Desktop

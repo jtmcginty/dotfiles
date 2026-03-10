@@ -11,6 +11,12 @@ if [[ -z "$(command -v brew)" ]]; then
   [[ -f "/usr/local/bin/brew" ]] && eval "$(/usr/local/bin/brew shellenv)"
 fi
 
+# ── Keybindings ───────────────────────────────────────────────────────────────
+# Emacs line-editing mode (Ctrl-A/E, Ctrl-R, Ctrl-W, etc.)
+bindkey -e
+# fn+Delete → forward-delete (same key, opposite direction of backspace)
+bindkey '\e[3~' delete-char
+
 # ── Auto-start tmux ───────────────────────────────────────────────────────────
 # Attach to the most recently used session, or create a new one.
 # Skipped inside tmux, in VS Code, and in CI environments.

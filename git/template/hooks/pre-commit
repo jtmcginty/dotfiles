@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+# pre-commit — template hook: secrets/credentials baseline check
+#
+# Safety net for repos where `pre-commit install` hasn't been run yet.
+# Once you run `pre-commit install`, the framework overwrites this hook
+# and takes over — this will no longer execute.
+#
+# Checks staged files only. Fails fast on first match.
+
+set -euo pipefail
+
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+staged_files=$(git diff --cached --name-only --diff-filter=ACM 2>/dev/null)
+[[ -z "$staged_files" ]] && exit 0
+
+found=0
+
+while IFS= read -r file; do
+  [[ -f "$file" ]] || continue
+
+  # Private keys
+  if grep -qE "-----BEGIN (RSA|DSA|EC|OPENSSH|PGP) PRIVATE KEY" "$file"; then
+    echo -e "${RED}[pre-commit] Private key detected:${NC} $file"
+    found=1
+  fi
+
+  # AWS credentials
+  if grep -qE "(AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16}" "$file"; then
+    echo -e "${RED}[pre-commit] AWS access key detected:${NC} $file"
+    found=1
+  fi
+
+  # Generic secret assignments (catches password=, api_key=, secret=, token=, etc.)
+  if grep -qiE "(password|passwd|api_key|apikey|api_secret|secret_key|auth_token|access_token)\s*=\s*['\"][^'\"]{6,}" "$file"; then
+    echo -e "${RED}[pre-commit] Possible hardcoded secret detected:${NC} $file"
+    found=1
+  fi
+
+  # .env files should never be committed
+  if [[ "$file" == *.env || "$file" == .env* ]]; then
+    echo -e "${RED}[pre-commit] .env file staged:${NC} $file"
+    found=1
+  fi
+
+done <<< "$staged_files"
+
+if [[ $found -eq 1 ]]; then
+  echo -e "${YELLOW}Commit blocked. Remove secrets before committing.${NC}"
+  exit 1
+fi
+
+exit 0

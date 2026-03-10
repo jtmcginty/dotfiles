@@ -1,0 +1,28 @@
+# Consistent line endings across platforms
+* text=auto
+
+# Explicitly binary — prevent text diffs and mangled line endings
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.gif    binary
+*.ico    binary
+*.webp   binary
+*.pdf    binary
+*.zip    binary
+*.tar    binary
+*.gz     binary
+*.tgz    binary
+*.bz2    binary
+*.xz     binary
+*.7z     binary
+*.ttf    binary
+*.otf    binary
+*.woff   binary
+*.woff2  binary
+*.eot    binary
+*.mp3    binary
+*.mp4    binary
+*.mov    binary
+*.sqlite binary
+*.db     binary

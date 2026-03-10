@@ -8,6 +8,7 @@ Personal configuration files managed as git submodules.
 dotfiles/
 ├── Brewfile      → one-shot tool installation
 ├── eza/          → symlinked to ~/.config/eza
+├── ghostty/      → symlinked to ~/.config/ghostty
 ├── git/
 │   ├── config          → symlinked to ~/.config/git/config
 │   ├── commit-template → symlinked to ~/.config/git/commit-template
@@ -97,6 +98,7 @@ mkdir -p ~/.local/state/k9s/screen-dumps
 ln -sf ~/dotfiles/nvim ~/.config/nvim
 ln -sf ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
 ln -sf ~/dotfiles/eza ~/.config/eza
+ln -sf ~/dotfiles/ghostty ~/.config/ghostty
 ln -sf ~/dotfiles/k9s ~/.config/k9s
 ln -sf ~/dotfiles/starship.toml ~/.config/starship.toml
 mkdir -p ~/.config/git

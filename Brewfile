@@ -28,6 +28,9 @@ brew "glow"                       # markdown viewer in terminal
 brew "watch"                      # periodic command re-run
 brew "wget"
 brew "jq"                         # JSON processor
+brew "yq"                         # YAML processor (jq for YAML)
+brew "pv"                         # pipe viewer — monitor progress of data through a pipe
+brew "dos2unix"                   # convert line endings
 brew "tree"                       # directory tree view
 brew "ncdu"                       # disk usage explorer
 brew "btop"                       # resource monitor
@@ -40,6 +43,7 @@ brew "gh"                         # GitHub CLI
 brew "lazygit"                    # TUI git client
 brew "tig"                        # TUI git log/diff browser
 brew "gitleaks"                   # secret scanning
+brew "commitizen"                 # conventional commit tooling
 
 # ── Editors and multiplexers ──────────────────────────────────────────────────
 brew "neovim"
@@ -61,6 +65,7 @@ brew "gopls"                      # Go LSP
 
 # ── Kubernetes ────────────────────────────────────────────────────────────────
 brew "kubernetes-cli"             # kubectl
+brew "kubectx"                    # fast context and namespace switching
 brew "k9s"                        # Kubernetes TUI
 brew "helm"                       # Kubernetes package manager
 brew "minikube"                   # local Kubernetes cluster
@@ -87,13 +92,18 @@ brew "hashicorp/tap/consul"       # service discovery and configuration
 brew "hashicorp/tap/nomad"        # workload orchestration
 brew "hashicorp/tap/packer"       # machine image builder
 brew "hashicorp/tap/boundary"     # identity-based access management
+brew "ansible"                    # agentless configuration management
 
 # ── Cloud CLIs ────────────────────────────────────────────────────────────────
+brew "awscli"                     # AWS CLI
 brew "doctl"                      # DigitalOcean CLI
 brew "pulumi"                     # infrastructure as code
+brew "jfrog-cli"                  # JFrog Artifactory / Xray CLI
 
 # ── Secrets / PKI ─────────────────────────────────────────────────────────────
 brew "step"                       # smallstep CLI — certs, OIDC, SSH
+brew "gnupg"                      # GPG encryption and signing
+brew "mkcert"                     # locally-trusted dev certificates
 
 # ── Neovim LSP servers ────────────────────────────────────────────────────────
 brew "lua-language-server"
@@ -122,6 +132,7 @@ cask "ghostty"
 # ── Core apps ─────────────────────────────────────────────────────────────────
 cask "docker-desktop"             # container runtime
 cask "firefox"
+cask "visualvm"                   # Java profiler and heap dump analyser
 cask "google-chrome"
 cask "keeper-password-manager"
 cask "postman"                    # API client

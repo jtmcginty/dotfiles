@@ -133,6 +133,7 @@ cask "ghostty"
 cask "docker-desktop"             # container runtime
 cask "firefox"
 cask "visualvm"                   # Java profiler and heap dump analyser
+cask "memoryanalyzer"             # Eclipse Memory Analyzer — heap dump analysis
 cask "google-chrome"
 cask "keeper-password-manager"
 cask "postman"                    # API client

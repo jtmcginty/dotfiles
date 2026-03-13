@@ -75,6 +75,26 @@ brew bundle --file=~/dotfiles/Brewfile
 
 ### 4. Manual steps (not in Homebrew)
 
+**LSP servers not available via brew:**
+
+```bash
+# clangd (C/C++) — comes with Xcode Command Line Tools
+xcode-select --install
+# Alternatively, brew install llvm provides a newer clangd at
+# $(brew --prefix llvm)/bin/clangd — add that to PATH if needed
+
+# sqls (SQL)
+go install github.com/sqls-server/sqls@latest
+
+# graphql-lsp (GraphQL)
+npm install -g graphql-language-service-cli
+
+# nginx-language-server (Nginx config)
+pip install nginx-language-server
+```
+
+**Other tools:**
+
 **nvm** — install via the official script (brew install works but expects `~/.nvm`):
 ```bash
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash

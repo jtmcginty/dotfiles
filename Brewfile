@@ -105,14 +105,31 @@ brew "step"                       # smallstep CLI — certs, OIDC, SSH
 brew "gnupg"                      # GPG encryption and signing
 brew "mkcert"                     # locally-trusted dev certificates
 
-# ── Neovim LSP servers ────────────────────────────────────────────────────────
+# ── LSP servers ───────────────────────────────────────────────────────────────
+brew "typescript-language-server" # TypeScript / JavaScript
+brew "rust-analyzer"              # Rust
+brew "pyright"                    # Python
+brew "solargraph"                 # Ruby
+brew "bash-language-server"       # Bash / shell
+brew "yaml-language-server"       # YAML
+brew "dockerfile-language-server" # Dockerfile (command: docker-langserver)
+brew "tailwindcss-language-server"
+brew "vscode-langservers-extracted" # CSS, HTML, JSON language servers
 brew "lua-language-server"
-brew "marksman"                   # Markdown LSP
-brew "taplo"                      # TOML LSP
-brew "helm-ls"                    # Helm LSP
-brew "texlab"                     # LaTeX LSP
+brew "marksman"                   # Markdown
+brew "taplo"                      # TOML
+brew "helm-ls"                    # Helm
+brew "texlab"                     # LaTeX
 brew "kotlin-language-server"
-brew "jdtls"                      # Java LSP
+brew "jdtls"                      # Java
+# terraform-ls — see Infrastructure section above
+# gopls      — see Go section above
+#
+# Not available via brew — see README for install instructions:
+#   clangd             (C/C++)   — Xcode CLT: xcode-select --install
+#   sqls               (SQL)     — go install github.com/sqls-server/sqls@latest
+#   graphql-lsp        (GraphQL) — npm install -g graphql-language-service-cli
+#   nginx-language-server        — pip install nginx-language-server
 
 # ── Security / repo hygiene ───────────────────────────────────────────────────
 brew "pre-commit"
